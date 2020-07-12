@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KENEFormsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EmailFolderType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="InUse" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmailMessages" Relationship="KENEFormsModel.FK__EmailMess__Email__61316BF4" FromRole="EmailFolderType" ToRole="EmailMessage" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserLogin" Relationship="Self.FK__Profile__UserId__44952D46" FromRole="Profile" ToRole="UserLogin" />
+  </EntityType>
+  <EntityType Name="UserLogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Profiles" Relationship="Self.FK__Profile__UserId__44952D46" FromRole="UserLogin" ToRole="Profile" />
+    <NavigationProperty Name="EmailMessages" Relationship="KENEFormsModel.FK__EmailMess__UserI__6225902D" FromRole="UserLogin" ToRole="EmailMessage" />
+  </EntityType>
+  <Association Name="FK__Profile__UserId__44952D46">
+    <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+    <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserLogin">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Profile">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmailClientEntity" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EmailFolderTypes" EntityType="Self.EmailFolderType" />
+    <EntitySet Name="Profiles" EntityType="Self.Profile" />
+    <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+    <AssociationSet Name="FK__Profile__UserId__44952D46" Association="Self.FK__Profile__UserId__44952D46">
+      <End Role="UserLogin" EntitySet="UserLogins" />
+      <End Role="Profile" EntitySet="Profiles" />
+    </AssociationSet>
+    <EntitySet Name="EmailMessages" EntityType="KENEFormsModel.EmailMessage" />
+    <EntitySet Name="EmailRecipients" EntityType="KENEFormsModel.EmailRecipient" />
+    <AssociationSet Name="FK__EmailMess__Email__61316BF4" Association="KENEFormsModel.FK__EmailMess__Email__61316BF4">
+      <End Role="EmailFolderType" EntitySet="EmailFolderTypes" />
+      <End Role="EmailMessage" EntitySet="EmailMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmailMess__UserI__6225902D" Association="KENEFormsModel.FK__EmailMess__UserI__6225902D">
+      <End Role="UserLogin" EntitySet="UserLogins" />
+      <End Role="EmailMessage" EntitySet="EmailMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmailReci__Email__67DE6983" Association="KENEFormsModel.FK__EmailReci__Email__67DE6983">
+      <End Role="EmailMessage" EntitySet="EmailMessages" />
+      <End Role="EmailRecipient" EntitySet="EmailRecipients" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EmailMessage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UID" Type="Guid" Nullable="false" />
+    <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="EmailFolderTypeID" Type="Int64" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmailFolderType" Relationship="KENEFormsModel.FK__EmailMess__Email__61316BF4" FromRole="EmailMessage" ToRole="EmailFolderType" />
+    <NavigationProperty Name="UserLogin" Relationship="KENEFormsModel.FK__EmailMess__UserI__6225902D" FromRole="EmailMessage" ToRole="UserLogin" />
+    <NavigationProperty Name="EmailRecipients" Relationship="KENEFormsModel.FK__EmailReci__Email__67DE6983" FromRole="EmailMessage" ToRole="EmailRecipient" />
+  </EntityType>
+  <EntityType Name="EmailRecipient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailMessageId" Type="Int64" />
+    <Property Name="Recipient" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmailMessage" Relationship="KENEFormsModel.FK__EmailReci__Email__67DE6983" FromRole="EmailRecipient" ToRole="EmailMessage" />
+  </EntityType>
+  <Association Name="FK__EmailMess__Email__61316BF4">
+    <End Type="KENEFormsModel.EmailFolderType" Role="EmailFolderType" Multiplicity="0..1" />
+    <End Type="KENEFormsModel.EmailMessage" Role="EmailMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailFolderType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmailMessage">
+        <PropertyRef Name="EmailFolderTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmailMess__UserI__6225902D">
+    <End Type="KENEFormsModel.UserLogin" Role="UserLogin" Multiplicity="0..1" />
+    <End Type="KENEFormsModel.EmailMessage" Role="EmailMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserLogin">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmailMessage">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmailReci__Email__67DE6983">
+    <End Type="KENEFormsModel.EmailMessage" Role="EmailMessage" Multiplicity="0..1" />
+    <End Type="KENEFormsModel.EmailRecipient" Role="EmailRecipient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailMessage">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmailRecipient">
+        <PropertyRef Name="EmailMessageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

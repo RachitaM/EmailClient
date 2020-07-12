@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="807ed7db23c64598a03083cd83e2455e" Name="Diagram1">
+        <EntityTypeShape EntityType="KENEFormsModel.EmailFolderType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KENEFormsModel.Profile" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KENEFormsModel.UserLogin" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="KENEFormsModel.FK__Profile__UserId__44952D46" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KENEFormsModel.EmailMessage" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="KENEFormsModel.EmailRecipient" Width="1.5" PointX="5.25" PointY="2.875" />
+        <AssociationConnector Association="KENEFormsModel.FK__EmailMess__Email__61316BF4" />
+        <AssociationConnector Association="KENEFormsModel.FK__EmailMess__UserI__6225902D" />
+        <AssociationConnector Association="KENEFormsModel.FK__EmailReci__Email__67DE6983" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

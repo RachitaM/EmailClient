@@ -1,0 +1,10 @@
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EmailClientRepo.exe.config
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EmailClientRepo.exe
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EmailClientRepo.pdb
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EntityFramework.dll
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EntityFramework.SqlServer.dll
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EntityFramework.xml
+D:\2020\EmailClientService\EmailClientRepo\bin\Debug\EntityFramework.SqlServer.xml
+D:\2020\EmailClientService\EmailClientRepo\obj\Debug\EmailClientRepo.exe
+D:\2020\EmailClientService\EmailClientRepo\obj\Debug\EmailClientRepo.pdb
+D:\2020\EmailClientService\EmailClientRepo\obj\Debug\EmailClientRepo.csprojResolveAssemblyReference.cache
